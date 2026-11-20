@@ -1,0 +1,5 @@
+start "pirate"
+	name "Pirate Origins"
+	description ``
+	description `	`
+	thumbnail scene/greenrock
