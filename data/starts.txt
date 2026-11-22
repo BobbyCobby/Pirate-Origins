@@ -2,4 +2,28 @@ start "pirate"
 	name "Pirate Origins"
 	description ``
 	description `	`
-	thumbnail scene/greenrock
+	thumbnail "land/sky0"
+	date 16 11 3013
+	system "Shaula"
+	planet "Greenrock"
+	conversation "pirate intro"
+	account
+		credits 1600000
+		score 150
+	set "license: Pilot's"
+	set "species: human"
+	set "human space start"
+	set "start: pirate"
+
+conversation "pirate intro"
+	action
+		log "Dad thought I'm ready to strike out on my own, so I've got an expertly forged pilot's license and a small fortune to buy a ship with. I didn't ask him where he got it."
+		log "Factions" "Republic" `Hundreds of years ago, the independent territories in different parts of human space agreed to join together into a single democratic government, with Earth as its capital. The rise of the Republic ushered in a long period of peace and prosperity in human history.` # Probably shouldn't be so complimentary here, will change it later
+			`Representation in the Republic Parliament is based on population. That means that some individual "Paradise Worlds" have more representatives than entire regions of space like the Dirt Belt that are more sparsely settled.`
+		log "Factions" "Syndicate" `The Syndicate is a megacorporation, the largest employer in human space. People who cannot find steady work elsewhere flock to the Syndicate factory worlds, where they are almost guaranteed to find a job. Although the Syndicate is technically part of the Republic, Syndicate worlds are governed directly by the corporation.`
+			`The Syndicate is a central part of the Republic's economy, but they are also well known for selling shoddy products and for doing damage to the environment on the worlds they control. Their treatment of workers is questionable, and their opposition to organized labor is legendary. Some Syndicate factory towns have even been accused of human rights abuses.`
+		log "Factions" "Pirates" `In poorer and more remote star systems, where the Navy seldom patrols, pirate attacks on merchant ships are frequent. Pirates are also known to attack large, unguarded convoys of freighters even in more populated areas. Most pirate fleets come from lawless worlds on the outskirts of human space.` # Again, needs changes obviously.
+	scene "scene/greenrock"
+	`TBD`
+	name
+	`TBD`
