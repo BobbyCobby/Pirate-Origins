@@ -1,0 +1,119 @@
+mission "Pirate [0]"
+	name "Passenger to <planet>"
+	description "This retiring pirate warlord offered to ride along with you to <destination>, and to give you some tips along the way."
+	landing
+	passengers 1
+	source "Greenrock"
+	destination "Trinket"
+	to offer
+		has "start: pirate"
+	to accept
+		"total ships" > "ships: Fighter" + "ships: Drone"
+
+	on offer
+		conversation "pirate intro mission"
+
+	on accept
+		log "Getting some basic instructions on making a living as a pirate from an old warlord named James."
+		log "Minor People" "James" `An old warlord who accompanied you on your first few jobs as a starship captain.`
+
+	on complete
+		payment 25000
+		conversation "pirate intro end"
+
+conversation "pirate intro mission"
+	`With some trepidation, you give the shipyard owner your money and take your new ship for a test drive, piloting it out of the shipyard and onto a spare landing pad by the spaceport. Then you get out and look the ship over a bit more closely. You are busy polishing out a few rust spots with a piece of steel wool when an old man in grease-stained coveralls walks up.`
+	`	"Nothing quite like buying your very first warship," he says.`
+	choice
+		`	"Yeah, I can't wait for the galaxy to bow before me."`
+			goto galaxy
+		`	"My ship isn't a warship, thank you very much."`
+			goto warship
+		`	"Beat it, old-timer, I've got more important things to do than chat with you."`
+			decline
+	label galaxy
+	`	He grins. "I know the feeling. But you've got a long ways to go, kid."`
+		goto warlord
+	label warship
+	`	He frowns. "Then you're going to need to turn it into one, if you want to be a pirate."`
+		goto warlord
+	label warlord
+	`	"You're a warlord?" you ask.`
+	`	"Was," he says. "Sold off my fleet a few hours ago, and I already miss it. But it was time. Time for me to retire." His voice trails off, then his face lights up. "Say, any chance I could hitch a ride with you, maybe show you the ropes, give you some pointers? I could pay you, of course."`
+	choice
+		`	"Sure, where are you trying to get to?"`
+			goto sure
+		`	"I'd rather figure things out on my own."`
+			decline
+		`	"I'm not transporting a criminal like you anywhere. Just because I was born on Greenrock doesn't mean I'm a pirate."`
+			goto criminal
+	label criminal
+		`	He scowls. "Then you'll last about two seconds, because the Republic doesn't want you either."`
+	choice
+		`	"Too bad. Leave me alone."`
+			decline
+		`	"Then I guess I have no choice. Where are you heading?"`
+	label sure
+	`	"Well," he says, "I'm a wanted fugitive, so I can't exactly book a spot on one of the Paradise Planets. But I helped a smuggler in a tight spot a few months ago, and he's got a nice, quiet spot for me, but I don't mind taking a roundabout way to get there. For starters, how about you give me a lift to <planet>? It's just one jump away from here; I can mark it on your map."`
+	choice
+		`	"Sounds good!"`
+			goto end
+		`	"How much will you pay me?"`
+	`	He laughs. "You have no idea how lucrative smuggling can be, do you? Twenty-five thousand credits; I won't even notice they're gone. I guarantee you that's more than any captain ever gets for carrying one passenger for one day."`
+	choice
+		`	"That's really generous. Thank you."`
+			goto end
+		`	"You're treating me like a charity case? No thanks, I'll earn my money legitimately."`
+			decline
+	label end
+	`	"Great," he says. "My name is James, by the way."`
+	`	"<first> <last>," you say.`
+	`	"I'm looking forward to traveling with you, Captain <last>," says James.`
+		to display
+			not "name: Michael Zahniser"
+			not "name: Bobby Cobby"
+	`	"<first> <last>?" he stops for a moment. "I've heard that name before. Reminds me of someone famous, I think," says James. "Anyways, I'm looking forward to traveling with you."`
+		to display
+			or
+				has "name: Michael Zahniser"
+				has "name: Bobby Cobby"
+
+	`	As you're helping him wheel his luggage aboard and showing him his bunk, he says, "Make sure to visit the local outfitter. You might not be able to afford everything, but, every world with an outfitter will at least carry a map with information on the neighboring systems. Buying them can help if you're not quite sure where you're going."`
+		accept
+
+conversation "pirate intro end"
+	`As you land on <planet>, James says, "Congrats on your first trip through hyperspace! I'm impressed that you didn't throw up; most folks do, the first time."`
+	`	"Including you?" you ask.`
+	`	"Yeah, and then spent half an hour in orbit cleaning my cabin while hoping my crew wouldn't see the mess. Not my proudest moment. Anyway, here's your pay." He hands you <payment>.`
+	`	Then he adds, "If you're okay with giving me a lift for a while longer, meet me in the spaceport. I'll see if I can rustle up any interesting work for you to do."`
+	``
+	`	(Click the "Spaceport" button to continue this mission.)`
+
+mission "Pirate [1]"
+	priority
+	name "Competition near <system>"
+	description "Bring your new friend James to <destination> and take out a rival pirate captain. Payment will be <payment>."
+	source "Trinket"
+	destination "Clark"
+	passengers 1
+	to offer
+		has "Intro [0]: done"
+	npc kill
+		government "Pirate (Rival)"
+		personality heroic marked staying target tracked
+		system destination
+		fleet "Small Southern Pirates" 1
+		dialog "The fleet has been eliminated. You can claim the bounty payment by landing on <destination>."
+	on offer
+		conversation
+			`You walk around the spaceport for a while, but nobody seems to need a captain at the moment. As you start heading back to your spaceship, James`
+				accept
+
+	on complete
+		payment 80000
+		conversation
+			`Along the journey, you learned that the family you are transporting are named the Hendersons, and that they are moving to <planet> mostly because they hope the urban setting will be better for their kids than <origin>, where there were hardly any children at all and their village had only a few thousand people in it. The grandmother, Olivia, has also been chattering nonstop about how excited she is about being on a world where she can actually go sunbathing: "I've gotten much too old for snowshoeing," she says.`
+			`	You say goodbye to them and wish them well, and as agreed they pay you <payment>. You are already well on your way towards paying down your mortgage!`
+			`	As James leaves the ship, he says, "Again, if you're okay with continuing to give me a ride, just meet me in the spaceport."`
+			``
+			`	(As before, click the "Spaceport" button to continue this mission.)`
